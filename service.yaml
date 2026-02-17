@@ -1,0 +1,16 @@
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: aqi-prediction-service
+  labels:
+    app: aqi-prediction-api
+spec:
+  type: NodePort
+  selector:
+    app: aqi-prediction-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+      nodePort: 30080
