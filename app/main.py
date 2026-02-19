@@ -7,6 +7,9 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
 
 from app.schemas import (
     AQIPredictionRequest,
@@ -14,6 +17,7 @@ from app.schemas import (
     HealthResponse
 )
 from app.model import load_model, predict_aqi
+
 
 # ─────────────────────────────────────────────
 # App Startup: Pre-load the model
@@ -43,6 +47,7 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc"
 )
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
 
 # Allow cross-origin requests (needed for web frontends)
 app.add_middleware(
@@ -130,12 +135,6 @@ async def predict(request: AQIPredictionRequest):
         )
 
 
-@app.get("/", tags=["Root"])
-async def root():
-    """API root — redirects users to documentation."""
-    return JSONResponse({
-        "message": "Welcome to the AQI Prediction API 🌍",
-        "docs": "/docs",
-        "health": "/health",
-        "predict": "POST /predict"
-    })
+@app.get("/", include_in_schema=False)
+async def serve_ui():
+    return FileResponse("frontend/index.html")

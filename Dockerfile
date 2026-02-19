@@ -33,7 +33,7 @@ COPY --from=builder /usr/local/bin /usr/local/bin
 
 # Copy application code
 COPY app/ ./app/
-
+COPY frontend/ ./frontend/
 # Change ownership to non-root user
 RUN chown -R appuser:appuser /app
 

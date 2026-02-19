@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <title>AQI Predictor</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>AQI Prediction 🌍</h1>
+
+      <input id="pm25" placeholder="PM2.5" />
+      <input id="pm10" placeholder="PM10" />
+      <input id="co2" placeholder="CO2" />
+      <input id="no2" placeholder="NO2" />
+      <input id="temperature" placeholder="Temperature" />
+      <input id="humidity" placeholder="Humidity" />
+
+      <button onclick="predict()">Predict AQI</button>
+
+      <div id="result"></div>
+    </div>
+
+    <script src="/static/script.js"></script>
+  </body>
+</html>
